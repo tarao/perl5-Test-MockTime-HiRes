@@ -17,6 +17,8 @@ our @EXPORT = qw(
     mock_time
 );
 
+our $VERSION = '0.01';
+
 my $datetime_was_loaded;
 
 BEGIN {
@@ -95,3 +97,49 @@ sub mock_time (&$) {
 
 1;
 __END__
+
+=head1 NAME
+
+Test::MockTime::HiRes - Replaces actual time with simulated high resolution time
+
+=head1 SYNOPSIS
+
+    use Test::MockTime::HiRes qw(mock_time);
+
+    my $now = time;
+    mock_time {
+        time;    # == $now;
+
+        sleep 3; # returns immediately
+
+        time;    # == $now + 3;
+
+        usleep $microsecond;
+    } $now;
+
+=head1 DESCRIPTION
+
+C<Test::MockTime::HiRes> is a L<Time::HiRes> compatible version of
+L<Test::MockTime>.  You can wait milliseconds in simulated time.
+
+It also provides C<mock_time> to restrict the effect of the simulation
+in a code block.
+
+=head1 SEE ALSO
+
+L<Test::MockTime>
+
+L<Time::HiRes>
+
+=head1 LICENSE
+
+Copyright (C) INA Lintaro
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 AUTHOR
+
+INA Lintaro E<lt>tarao.gnn@gmail.comE<gt>
+
+=cut
