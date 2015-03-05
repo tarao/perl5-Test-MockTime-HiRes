@@ -59,6 +59,17 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/tarao/perl5-Test-MockTime-HiRes/issues"
+      },
+      "homepage" : "https://github.com/tarao/perl5-Test-MockTime-HiRes",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/tarao/perl5-Test-MockTime-HiRes.git",
+         "web" : "https://github.com/tarao/perl5-Test-MockTime-HiRes"
+      }
+   },
    "version" : "0.01",
    "x_authority" : "cpan:TARAO"
 }
