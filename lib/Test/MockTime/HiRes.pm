@@ -1,6 +1,7 @@
 package Test::MockTime::HiRes;
 use strict;
 use warnings;
+use 5.010;
 
 # cpan
 use Test::More;
