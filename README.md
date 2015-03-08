@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/tarao/perl5-Test-MockTime-HiRes.svg?branch=master)](https://travis-ci.org/tarao/perl5-Test-MockTime-HiRes)
 # NAME
 
 Test::MockTime::HiRes - Replaces actual time with simulated high resolution time
