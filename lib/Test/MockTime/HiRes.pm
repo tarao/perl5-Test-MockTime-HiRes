@@ -18,7 +18,7 @@ our @EXPORT = qw(
     mock_time
 );
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 my $datetime_was_loaded;
 
@@ -40,7 +40,7 @@ BEGIN {
     *CORE::GLOBAL::time = \&Test::MockTime::time;
 
     *CORE::GLOBAL::sleep = sub ($) {
-        return int(Test::MockTime::HiRes::_sleep($_[0], \&CORE::sleep));
+        return int(Test::MockTime::HiRes::_sleep($_[0], sub {CORE::sleep $_[0]}));
     };
     my $hires_clock_gettime = \&Time::HiRes::clock_gettime;
     my $hires_time = \&Time::HiRes::time;
