@@ -71,6 +71,9 @@
          "web" : "https://github.com/tarao/perl5-Test-MockTime-HiRes"
       }
    },
-   "version" : "0.02",
-   "x_authority" : "cpan:TARAO"
+   "version" : "0.03",
+   "x_authority" : "cpan:TARAO",
+   "x_contributors" : [
+      "Torsten Förtsch <torsten@binary.com>"
+   ]
 }
