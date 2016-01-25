@@ -2,6 +2,8 @@ Revision history for Perl extension Test-MockTime-HiRes
 
 {{$NEXT}}
 
+0.04 2016-01-25T09:57:52Z
+    - Support gettimeofday
 0.03 2015-03-23T16:39:44Z
     - Fix: error on calling undefined CORE::sleep
 0.02 2015-03-08T08:40:47Z

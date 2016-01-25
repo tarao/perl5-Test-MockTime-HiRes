@@ -4,7 +4,7 @@
       "INA Lintaro <tarao.gnn@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v2.3.0, CPAN::Meta::Converter version 2.143240",
+   "generated_by" : "Minilla/v2.2.1, CPAN::Meta::Converter version 2.143240",
    "license" : [
       "perl_5"
    ],
@@ -71,9 +71,10 @@
          "web" : "https://github.com/tarao/perl5-Test-MockTime-HiRes"
       }
    },
-   "version" : "0.03",
+   "version" : "0.04",
    "x_authority" : "cpan:TARAO",
    "x_contributors" : [
-      "Torsten Förtsch <torsten@binary.com>"
+      "Torsten Förtsch <torsten@binary.com>",
+      "Asato Wakisaka <asato.wakisaka@gmail.com>"
    ]
 }
