@@ -3,7 +3,7 @@ use parent qw(Test::Class);
 use Test::More;
 use Test::MockTime::HiRes qw(mock_time);
 
-sub hires : Tests {
+sub hires__time_and_sleep : Tests {
     require Time::HiRes;
 
     subtest 'original' => sub {
@@ -24,6 +24,37 @@ sub hires : Tests {
         } $now;
 
         cmp_ok Time::HiRes::time() - $now, '<', 2, 'no wait';
+    };
+}
+
+sub hires__gettimeofday : Tests {
+    require Time::HiRes;
+
+    subtest 'original' => sub {
+        my $core_time = time;
+        Time::HiRes::sleep 0.1;
+        my $scalar_context = Time::HiRes::gettimeofday();
+        my $array_context = [ Time::HiRes::gettimeofday() ];
+
+        cmp_ok $scalar_context, '>', $core_time;
+        cmp_ok $array_context->[0], '>=', $core_time;
+        is $array_context->[0], int($array_context->[0]), 'integer part';
+        cmp_ok $array_context->[1], '<', 1_000_000;
+    };
+
+    subtest 'mock' => sub {
+        my $now = Time::HiRes::time;
+
+        mock_time {
+            my $core_time = time;
+            my $scalar_context = Time::HiRes::gettimeofday();
+            my $array_context = [ Time::HiRes::gettimeofday() ];
+
+            is $scalar_context, $now;
+            is $array_context->[0], $core_time;
+            is $array_context->[0], int($array_context->[0]), 'integer part';
+            is $array_context->[1], 1_000_000 * ($now - $core_time), 'fraction part';
+        } $now;
     };
 }
 

@@ -44,6 +44,7 @@ BEGIN {
     };
     my $hires_clock_gettime = \&Time::HiRes::clock_gettime;
     my $hires_time = \&Time::HiRes::time;
+    my $hires_gettimeofday = \&Time::HiRes::gettimeofday;
     my $hires_sleep = \&Time::HiRes::sleep;
     my $hires_usleep = \&Time::HiRes::usleep;
     my $hires_nanosleep = \&Time::HiRes::nanosleep;
@@ -52,6 +53,9 @@ BEGIN {
     };
     *Time::HiRes::time = sub () {
         return Test::MockTime::HiRes::time($hires_time);
+    };
+    *Time::HiRes::gettimeofday = sub () {
+        return Test::MockTime::HiRes::gettimeofday($hires_gettimeofday);
     };
     *Time::HiRes::sleep = sub (;@) {
         return Test::MockTime::HiRes::_sleep($_[0], $hires_sleep);
@@ -70,6 +74,18 @@ sub time (&;@) {
     my $original = shift;
     $Test::MockTime::fixed // $original->(@_) + $Test::MockTime::offset;
 }
+
+sub gettimeofday() {
+    my $original = shift;
+    if (defined $Test::MockTime::fixed) {
+        return wantarray ? do {
+            my $int_part = int($Test::MockTime::fixed);
+            ($int_part, 1_000_000 * ($Test::MockTime::fixed - $int_part))
+        }: $Test::MockTime::fixed;
+    } else {
+        return $original->(@_);
+    }
+};
 
 sub _sleep ($&;$) {
     my ($sec, $original, $resolution) = @_;
