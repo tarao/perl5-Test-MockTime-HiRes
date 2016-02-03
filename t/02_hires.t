@@ -58,7 +58,7 @@ sub hires__gettimeofday : Tests {
             is $scalar_context, $now;
             is $array_context->[0], $core_time;
             is $array_context->[0], int($array_context->[0]), 'integer part';
-            is $array_context->[1], sprintf('%d', 1_000_000 * ($now - $core_time)), 'fraction part';
+            ok (($array_context->[1] > 1_000_000 * ($now - $core_time) - 1) && ($array_context->[1] < 1_000_000 * ($now - $core_time) +1), 'fraction part' );
             like $array_context->[1], qr/\A[0-9]+\Z/, 'fraction part is integer';
 
             Time::HiRes::sleep 0.3;
