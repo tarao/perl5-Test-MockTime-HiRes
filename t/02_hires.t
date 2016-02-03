@@ -40,6 +40,11 @@ sub hires__gettimeofday : Tests {
         cmp_ok $array_context->[0], '>=', $core_time;
         is $array_context->[0], int($array_context->[0]), 'integer part';
         cmp_ok $array_context->[1], '<', 1_000_000;
+
+        like $array_context->[1], qr/\A[0-9]+\Z/, 'fraction part is integer';
+
+        Time::HiRes::sleep 0.3;
+        like [ Time::HiRes::gettimeofday() ]->[1], qr/\A[0-9]+\Z/, 'fraction part is still integer after sleep';
     };
 
     subtest 'mock' => sub {
@@ -53,7 +58,11 @@ sub hires__gettimeofday : Tests {
             is $scalar_context, $now;
             is $array_context->[0], $core_time;
             is $array_context->[0], int($array_context->[0]), 'integer part';
-            is $array_context->[1], 1_000_000 * ($now - $core_time), 'fraction part';
+            is $array_context->[1], sprintf('%d', 1_000_000 * ($now - $core_time)), 'fraction part';
+            like $array_context->[1], qr/\A[0-9]+\Z/, 'fraction part is integer';
+
+            Time::HiRes::sleep 0.3;
+            like [ Time::HiRes::gettimeofday() ]->[1], qr/\A[0-9]+\Z/, 'fraction part is still integer after sleep';
         } $now;
     };
 }

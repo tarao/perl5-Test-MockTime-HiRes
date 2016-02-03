@@ -80,7 +80,7 @@ sub gettimeofday() {
     if (defined $Test::MockTime::fixed) {
         return wantarray ? do {
             my $int_part = int($Test::MockTime::fixed);
-            ($int_part, 1_000_000 * ($Test::MockTime::fixed - $int_part))
+            ($int_part, 1_000_000 * sprintf('%.6f', ($Test::MockTime::fixed - $int_part)))
         }: $Test::MockTime::fixed;
     } else {
         return $original->(@_);
