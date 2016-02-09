@@ -1,7 +1,6 @@
 package Test::MockTime::HiRes;
 use strict;
 use warnings;
-use 5.010;
 
 # cpan
 use Test::More;
@@ -72,7 +71,7 @@ BEGIN {
 
 sub time (&;@) {
     my $original = shift;
-    $Test::MockTime::fixed // $original->(@_) + $Test::MockTime::offset;
+    defined $Test::MockTime::fixed ? $Test::MockTime::fixed : $original->(@_) + $Test::MockTime::offset;
 }
 
 sub gettimeofday() {
