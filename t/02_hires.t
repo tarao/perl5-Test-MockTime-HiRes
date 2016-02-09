@@ -62,9 +62,16 @@ sub hires__gettimeofday : Tests {
             like $array_context->[1], qr/\A[0-9]+\Z/, 'fraction part is integer';
 
             Time::HiRes::sleep 0.3;
-            like [ Time::HiRes::gettimeofday() ]->[1], qr/\A[0-9]+\Z/, 'fraction part is still integer after sleep';
+            my $array_context_after_sleep = [ Time::HiRes::gettimeofday() ];
+            is microsecond_from_array_context_of_gettimeofday($array_context_after_sleep), microsecond_from_array_context_of_gettimeofday($array_context) + 300_000,
+                'increases by 0.3 secs.';
         } $now;
     };
+}
+
+sub microsecond_from_array_context_of_gettimeofday {
+    my ($time) = shift;
+    $time->[0] * 1_000_000 + $time->[1];
 }
 
 __PACKAGE__->runtests;
