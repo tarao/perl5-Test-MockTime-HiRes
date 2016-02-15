@@ -17,7 +17,7 @@ our @EXPORT = qw(
     mock_time
 );
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 my $datetime_was_loaded;
 

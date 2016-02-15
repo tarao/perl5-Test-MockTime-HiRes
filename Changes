@@ -2,6 +2,8 @@ Revision history for Perl extension Test-MockTime-HiRes
 
 {{$NEXT}}
 
+0.06 2016-02-15T01:21:06Z
+    - Apply updates of meta files
 0.05 2016-02-14T03:18:17Z
     - Support Perl 5.8
 0.04 2016-01-25T09:57:52Z
