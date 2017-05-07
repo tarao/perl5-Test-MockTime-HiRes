@@ -60,10 +60,10 @@ BEGIN {
         return Test::MockTime::HiRes::_sleep($_[0], $hires_sleep);
     };
     *Time::HiRes::usleep = sub ($) {
-        return Test::MockTime::HiRes::_sleep($_[0], $hires_usleep, 1000);
+        return Test::MockTime::HiRes::_sleep($_[0], $hires_usleep, 1000_000);
     };
     *Time::HiRes::nanosleep = sub ($) {
-        return Test::MockTime::HiRes::_sleep($_[0], $hires_nanosleep, 1000_000);
+        return Test::MockTime::HiRes::_sleep($_[0], $hires_nanosleep, 1000_000_000);
     };
 
     $datetime_was_loaded = 1 if $INC{'DateTime.pm'};
