@@ -2,6 +2,9 @@ Revision history for Perl extension Test-MockTime-HiRes
 
 {{$NEXT}}
 
+0.07 2017-05-09T01:42:35Z
+    - Fix resolution of usleep() and nanosleep()
+    - Fix gettimeofday() to return integer values
 0.06 2016-02-15T01:21:06Z
     - Apply updates of meta files
 0.05 2016-02-14T03:18:17Z
