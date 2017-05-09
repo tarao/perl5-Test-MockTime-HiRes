@@ -18,9 +18,13 @@ sub hires__time_and_sleep : Tests {
         mock_time {
             is Time::HiRes::time(), $now;
             sleep 1;
-            is Time::HiRes::time(), $now + 1;
+            is Time::HiRes::time(), $now + 1, "sleep() works";
             Time::HiRes::sleep 1;
-            is Time::HiRes::time(), $now + 2;
+            is Time::HiRes::time(), $now + 2, "Time::HiRes::sleep() works";
+            Time::HiRes::usleep(1_000_000);
+            cmp_ok Time::HiRes::time() - ($now + 3), '<', 0.000_005, "Time::HiRes::usleep() works";
+            Time::HiRes::nanosleep(1_000_000_000);
+            cmp_ok Time::HiRes::time() - ($now + 4), '<', 0.000_005, "Time::HiRes::nanosleep() works";
         } $now;
 
         cmp_ok Time::HiRes::time() - $now, '<', 2, 'no wait';
