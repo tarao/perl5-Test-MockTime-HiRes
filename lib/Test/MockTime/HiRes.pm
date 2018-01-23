@@ -70,7 +70,7 @@ BEGIN {
     $datetime_was_loaded = 1 if $INC{'DateTime.pm'};
 }
 
-sub time (&;@) {
+sub time ($;@) {
     my $original = shift;
     defined $Test::MockTime::fixed ? $Test::MockTime::fixed : $original->(@_) + $Test::MockTime::offset;
 }
